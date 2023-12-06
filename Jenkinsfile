@@ -45,9 +45,9 @@ pipeline {
             steps {
                  script {
                      sh  'sudo apt install -y git'
-                         'sudo rm -rf /var/www/html'
-                         'sudo rm -rf /var/www'
-                         'sudo git clone https://raw.githubusercontent.com/Andrey15716/DOS15-onl_DevOps_exam/main/application/index.html /var/www/html'
+                     sh  'sudo rm -rf /var/www/html'
+                     sh  'sudo rm -rf /var/www'
+                     sh  'sudo git clone https://raw.githubusercontent.com/Andrey15716/DOS15-onl_DevOps_exam/main/application/index.html /var/www/html'
                  }
             }
         }
