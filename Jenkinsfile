@@ -12,7 +12,7 @@ pipeline {
         stage('Check Index File Size') {
             steps {
                 script {
-                    sh 'curl -o /home/project/index.html https://github.com/Andrey15716/DOS15-onl_DevOps_exam/blob/main/application/index.html'
+                    sh 'curl -fsSL -o /home/project/index.html https://raw.githubusercontent.com/Andrey15716/DOS15-onl_DevOps_exam/main/application/index.html'
                     currentSize = sh(script: 'stat -c%s index.html', returnStdout: true).trim()
                     if (fileExists(PREVIOUS_SIZE_FILE)) {
                         previousSize = readFile(PREVIOUS_SIZE_FILE).trim()
