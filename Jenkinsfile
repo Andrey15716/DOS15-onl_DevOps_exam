@@ -2,9 +2,9 @@ pipeline {
     agent any
 
     environment {
-        PREVIOUS_SIZE_FILE = '/home/andrey/project/previous_size.txt'
+        PREVIOUS_SIZE_FILE = 'https://raw.githubusercontent.com/Andrey15716/DOS15-onl_DevOps_exam/main/previous_size.txt'
         EC2_HOST = "my-alb-640748811.us-east-1.elb.amazonaws.com"
-        KEY_PATH = "home/andrey/project/private_key.pem"
+        KEY_PATH = "https://raw.githubusercontent.com/Andrey15716/DOS15-onl_DevOps_exam/main/private_key.pem"
     }
 
     stages {
