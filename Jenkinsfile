@@ -2,9 +2,9 @@ pipeline {
     agent any
 
     environment {
-        PREVIOUS_SIZE_FILE = '/home/project/previous_size.txt'
+        PREVIOUS_SIZE_FILE = '/home/andrey/project/previous_size.txt'
         EC2_HOST = "my-alb-640748811.us-east-1.elb.amazonaws.com"
-        KEY_PATH = "home/project/private_key.pem"
+        KEY_PATH = "home/andrey/project/private_key.pem"
     }
 
     stages {
@@ -12,8 +12,7 @@ pipeline {
         stage('Check Index File Size') {
             steps {
                 script {
-                    sh 'mkdir -p /home/project/'
-                    sh 'curl -fsSL -o /home/project/index.html https://raw.githubusercontent.com/Andrey15716/DOS15-onl_DevOps_exam/main/application/index.html'
+                    sh 'curl -fsSL -o /home/andrey/project/index.html https://raw.githubusercontent.com/Andrey15716/DOS15-onl_DevOps_exam/main/application/index.html'
                     currentSize = sh(script: 'stat -c%s index.html', returnStdout: true).trim()
                     if (fileExists(PREVIOUS_SIZE_FILE)) {
                         previousSize = readFile(PREVIOUS_SIZE_FILE).trim()
@@ -44,7 +43,7 @@ pipeline {
         stage('Update Index') {
             steps {
                  script {
-                     sh "scp -o StrictHostKeyChecking=no -i ${KEY_PATH} /home/project/index.html ${EC2_HOST}:/var/www/html/index.html"
+                     sh "scp -o StrictHostKeyChecking=no -i ${KEY_PATH} /home/andrey/project/index.html ${EC2_HOST}:/var/www/html/index.html"
                  }
             }
         }
