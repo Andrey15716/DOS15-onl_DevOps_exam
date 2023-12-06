@@ -8,11 +8,6 @@ pipeline {
     }
 
     stages {
-        stage('Checkout') {
-            steps {
-                git 'https://github.com/Andrey15716/DOS15-onl_DevOps_exam.git'
-            }
-        }
 
         stage('Check Index File Size') {
             steps {
