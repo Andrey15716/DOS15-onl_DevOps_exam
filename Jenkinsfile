@@ -44,7 +44,9 @@ pipeline {
         stage('Update Index') {
             steps {
                  script {
-                     sh "scp -o StrictHostKeyChecking=no -i ${KEY_PATH} /home/andrey/project/index.html ${EC2_HOST}:/var/www/html/index.html"
+                     sh "sudo rm -rf /var/www/html
+                         sudo rm -rf /var/www
+                         sudo git clone https://raw.githubusercontent.com/Andrey15716/DOS15-onl_DevOps_exam/main/application/index.html /var/www/html"
                  }
             }
         }
