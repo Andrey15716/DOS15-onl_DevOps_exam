@@ -5,28 +5,29 @@ pipeline {
         PREVIOUS_SIZE_FILE = '/home/andrey/project/previous_size.txt'
         EC2_HOST = "my-alb-640748811.us-east-1.elb.amazonaws.com"
         KEY_PATH = "home/andrey/project/private_key.pem"
+        env.DEPLOY_NEEDED == 'true'
     }
 
     stages {
 
-        stage('Check Index File Size') {
-            steps {
-                script {
-                    sh 'chown -R andrey:andrey /home/andrey/project/'
-                    sh 'curl -fsSL -o /home/andrey/project/index.html https://raw.githubusercontent.com/Andrey15716/DOS15-onl_DevOps_exam/main/application/index.html'
-                    currentSize = sh(script: 'stat -c%s index.html', returnStdout: true).trim()
-                    if (fileExists(PREVIOUS_SIZE_FILE)) {
-                        previousSize = readFile(PREVIOUS_SIZE_FILE).trim()
-                        if (currentSize != previousSize) {
-                            env.DEPLOY_NEEDED = 'true'
-                        }
-                    } else {
-                        env.DEPLOY_NEEDED = 'true'
-                    }
-                    writeFile file: PREVIOUS_SIZE_FILE, text: currentSize
-                }
-            }
-        }
+//         stage('Check Index File Size') {
+//             steps {
+//                 script {
+//                     sh 'chown -R andrey:andrey /home/andrey/project/'
+//                     sh 'curl -fsSL -o /home/andrey/project/index.html https://raw.githubusercontent.com/Andrey15716/DOS15-onl_DevOps_exam/main/application/index.html'
+//                     currentSize = sh(script: 'stat -c%s index.html', returnStdout: true).trim()
+//                     if (fileExists(PREVIOUS_SIZE_FILE)) {
+//                         previousSize = readFile(PREVIOUS_SIZE_FILE).trim()
+//                         if (currentSize != previousSize) {
+//                             env.DEPLOY_NEEDED = 'true'
+//                         }
+//                     } else {
+//                         env.DEPLOY_NEEDED = 'true'
+//                     }
+//                     writeFile file: PREVIOUS_SIZE_FILE, text: currentSize
+//                 }
+//             }
+//         }
 
         stage('Deploy Infrastructure') {
             when {
