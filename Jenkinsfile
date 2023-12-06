@@ -49,7 +49,8 @@ pipeline {
             steps {
                  script {
                      sh "scp -o StrictHostKeyChecking=no -i ${KEY_PATH} /home/project/index.html ${EC2_HOST}:/var/www/html/index.html"
-                        }
+                 }
+            }
         }
     }
 }
