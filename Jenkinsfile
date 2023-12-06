@@ -1,13 +1,55 @@
 pipeline {
     agent any
+
+    environment {
+        PREVIOUS_SIZE_FILE = '/home/project/previous_size.txt'
+        EC2_HOST = "my-alb-640748811.us-east-1.elb.amazonaws.com"
+        KEY_PATH = "home/project/private_key.pem"
+    }
+
     stages {
-        stage('Deploy') {
+        stage('Checkout') {
+            steps {
+                git 'https://github.com/Andrey15716/DOS15-onl_DevOps_exam.git'
+            }
+        }
+
+        stage('Check Index File Size') {
+            steps {
+                script {
+                    sh 'curl -o /home/project/index.html https://github.com/Andrey15716/DOS15-onl_DevOps_exam/blob/main/application/index.html'
+                    currentSize = sh(script: 'stat -c%s index.html', returnStdout: true).trim()
+                    if (fileExists(PREVIOUS_SIZE_FILE)) {
+                        previousSize = readFile(PREVIOUS_SIZE_FILE).trim()
+                        if (currentSize != previousSize) {
+                            env.DEPLOY_NEEDED = 'true'
+                        }
+                    } else {
+                        env.DEPLOY_NEEDED = 'true'
+                    }
+                    writeFile file: PREVIOUS_SIZE_FILE, text: currentSize
+                }
+            }
+        }
+
+        stage('Deploy Infrastructure') {
+            when {
+                expression { env.DEPLOY_NEEDED == 'true' }
+            }
             steps {
                 script {
                     sh 'terraform init'
+                    sh 'terraform plan'
                     sh 'terraform apply -auto-approve'
                 }
             }
+        }
+
+        stage('Update Index') {
+            steps {
+                 script {
+                     sh "scp -o StrictHostKeyChecking=no -i ${KEY_PATH} /home/project/index.html ${EC2_HOST}:/var/www/html/index.html"
+                        }
         }
     }
 }
