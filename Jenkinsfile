@@ -47,7 +47,7 @@ pipeline {
                      sh  'sudo apt install -y git'
                      sh  'sudo rm -rf /var/www/html'
                      sh  'sudo rm -rf /var/www'
-                     sh  'sudo git clone https://raw.githubusercontent.com/Andrey15716/DOS15-onl_DevOps_exam/main/application/index.html /var/www/html'
+                     sh  'sudo git clone https://github.com/Andrey15716/DOS15-onl_DevOps_exam/tree/ab980c36fac957d1a275783cc05b3a6d5d8ab407/application /var/www/html'
                  }
             }
         }
