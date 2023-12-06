@@ -5,7 +5,6 @@ pipeline {
         PREVIOUS_SIZE_FILE = '/home/andrey/project/previous_size.txt'
         EC2_HOST = "my-alb-640748811.us-east-1.elb.amazonaws.com"
         KEY_PATH = "home/andrey/project/private_key.pem"
-        env.DEPLOY_NEEDED == 'true'
     }
 
     stages {
@@ -30,9 +29,9 @@ pipeline {
 //         }
 
         stage('Deploy Infrastructure') {
-            when {
-                expression { env.DEPLOY_NEEDED == 'true' }
-            }
+//             when {
+//                 expression { env.DEPLOY_NEEDED == 'true' }
+//             }
             steps {
                 script {
                     sh 'terraform init'
