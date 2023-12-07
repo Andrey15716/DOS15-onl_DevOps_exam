@@ -156,7 +156,7 @@ resource "aws_launch_template" "my_launch_template" {
 
   image_id      = "ami-053b0d53c279acc90"
   instance_type = "t2.micro"
-  key_name      = "DOS_15_Antonenko"
+  key_name      = "DOS15-Antonenko-ec2"
 
   # user data script that starts only while starting ec2
   user_data = filebase64("${path.module}/server.sh")
