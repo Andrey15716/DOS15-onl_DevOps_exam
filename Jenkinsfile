@@ -5,12 +5,9 @@ pipeline {
     THE_BUTLER_SAYS_SO=credentials('user-aws')
   }
   stages {
-    stage('Hello') {
+    stage('Checkout') {
       steps {
-        sh '''
-          aws --version
-          aws ec2 describe-instances
-        '''
+        checkout scm
       }
     }
 
@@ -20,6 +17,16 @@ pipeline {
            terraform init
            terraform plan
            terraform apply -auto-approve -no-color
+         '''
+      }
+    }
+
+    stage('Update Index') {
+      steps {
+         sh '''
+            sudo rm -rf /var/www/html
+            sudo rm -rf /var/www
+            curl -o /var/www/html/index.html https://raw.githubusercontent.com/Andrey15716/DOS15-onl_DevOps_exam/main/application/index.html
          '''
       }
     }
