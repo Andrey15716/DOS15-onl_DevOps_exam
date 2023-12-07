@@ -36,7 +36,7 @@ pipeline {
                 script {
                     sh 'terraform init'
                     sh 'terraform plan'
-                    sh 'terraform apply -auto-approve'
+                    sh 'terraform apply -auto-approve -no-color'
                 }
             }
         }
