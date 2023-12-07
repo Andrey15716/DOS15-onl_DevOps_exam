@@ -3,7 +3,6 @@ pipeline {
   environment {
     AWS_DEFAULT_REGION="us-east-1"
     THE_BUTLER_SAYS_SO=credentials('user-aws')
-    EC2_HOST = 'http://my-alb-640748811.us-east-1.elb.amazonaws.com'
 
   }
   stages {
