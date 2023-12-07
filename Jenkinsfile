@@ -23,5 +23,14 @@ pipeline {
          }
       }
     }
+
+    stage('Download Index') {
+        steps {
+            script {
+                sh 'mkdir -p /home/project/'
+                sh 'curl -o /var/www/html/index.html https://github.com/Andrey15716/DOS15-onl_DevOps_exam/blob/main/application/index.html'
+            }
+        }
+    }
   }
 }
