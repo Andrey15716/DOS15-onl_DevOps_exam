@@ -12,21 +12,17 @@ pipeline {
       }
     }
 
-//     stage('Deploy Infrastructure') {
-//       steps {
-//         withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'user-aws', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
-//           sh '''
-//             terraform init
-//             terraform plan -out=tfplan
-//             if grep -q 'No changes. Infrastructure is up-to-date.' tfplan; then
-//               echo "No changes required."
-//             else
-//               terraform apply -auto-approve tfplan
-//             fi
-//           '''
-//         }
-//       }
-//     }
+    stage('Deploy Infrastructure') {
+      steps {
+        withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'user-aws', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+          sh '''
+            terraform init
+            terraform plan
+              terraform apply -auto-approve
+          '''
+        }
+      }
+    }
 
     stage('Deploy Application') {
       steps {

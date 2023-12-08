@@ -7,6 +7,16 @@ terraform {
   }
 }
 
+terraform {
+  backend "s3" {
+    bucket         = "DOS15-Antonenko-s3"
+    key            = "/var/lib/jenkins/workspace/test-pipeline/terraform.tfstate"
+    region         = "us-east-1"
+    encrypt        = true
+  }
+}
+
+
 #vpc resource
 resource "aws_vpc" "main" {
   cidr_block = "10.0.0.0/16"
@@ -247,3 +257,4 @@ resource "aws_cloudwatch_metric_alarm" "scale_down_alarm" {
   actions_enabled = true
   alarm_actions   = [aws_autoscaling_policy.scale_down.arn]
 }
+
