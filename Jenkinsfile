@@ -32,7 +32,7 @@ pipeline {
       steps {
         sshagent(['ec2-key']) {
           sh '''
-            ssh -o StrictHostKeyChecking=no ec2-user@your-ec2-ip-address 'bash -s' < sshConnect.sh
+            ssh -o StrictHostKeyChecking=no ec2-user@my-alb-1307366991.us-east-1.elb.amazonaws.com 'bash -s' < sshConnect.sh
           '''
         }
       }
