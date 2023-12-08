@@ -26,7 +26,7 @@ pipeline {
     stage('Deploy Application') {
       steps {
           sh '''
-               ssh -i home/andrey/DOS15-Antonenko-ec2.pem ec2-user@3.83.141.178
+               ssh -i /home/andrey/DOS15-Antonenko-ec2.pem ec2-user@3.83.141.178
           '''
       }
     }
