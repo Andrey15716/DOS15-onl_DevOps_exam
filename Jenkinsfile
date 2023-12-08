@@ -16,8 +16,6 @@ pipeline {
       steps {
          withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'user-aws', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
            sh '''
-             terraform init
-             terraform plan
              terraform destroy
            '''
          }
