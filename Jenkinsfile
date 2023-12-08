@@ -25,9 +25,11 @@ pipeline {
 
     stage('Deploy Application') {
       steps {
+        sshagent(['ec2-key']) {
           sh '''
                ssh -i /home/andrey/DOS15-Antonenko-ec2.pem ec2-user@3.83.141.178
           '''
+        }
       }
     }
   }
