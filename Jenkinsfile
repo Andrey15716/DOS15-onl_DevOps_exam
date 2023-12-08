@@ -16,7 +16,9 @@ pipeline {
       steps {
          withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'user-aws', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
            sh '''
-             terraform destroy -auto-approve
+             terraform init
+             terraform plan
+             terraform apply -auto-approve
            '''
          }
       }
@@ -26,7 +28,7 @@ pipeline {
         steps {
            sh '''
               mkdir -p /home/project/
-              curl -o /var/www/html/index.html https://github.com/Andrey15716/DOS15-onl_DevOps_exam/blob/main/application/index.html
+              curl -o /var/www/html/index.html https://raw.githubusercontent.com/Andrey15716/DOS15-onl_DevOps_exam/be609f83b3a718ed4f5bed80220e7a9e4390fae5/application/index.html
            '''
         }
     }
