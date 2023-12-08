@@ -10,7 +10,7 @@ terraform {
 terraform {
   backend "s3" {
     bucket         = "DOS15-Antonenko-s3"
-    key            = "/var/lib/jenkins/workspace/test-pipeline/terraform.tfstate"
+    key            = "var/lib/jenkins/workspace/test-pipeline/terraform.tfstate"
     region         = "us-east-1"
     encrypt        = true
   }
