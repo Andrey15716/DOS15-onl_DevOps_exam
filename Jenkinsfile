@@ -28,6 +28,7 @@ pipeline {
         sshagent(['ec2-key']) {
           sh '''
               ssh -o StrictHostKeyChecking=no ubuntu@54.86.69.28 'bash -s' < sshConnect.sh
+              ssh -o StrictHostKeyChecking=no ubuntu@3.83.141.178 'bash -s' < sshConnect.sh
           '''
         }
       }
