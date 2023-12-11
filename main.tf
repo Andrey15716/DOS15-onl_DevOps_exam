@@ -116,6 +116,13 @@ resource "aws_security_group" "my_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+  ingress {
+    from_port   = 9090
+    to_port     = 9090
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
   egress {
     description = "Allow outgoing traffic"
     from_port   = 0
@@ -158,6 +165,23 @@ resource "aws_lb_target_group" "my_tg" {
   port        = 80
   protocol    = "HTTP"
   vpc_id      = aws_vpc.main.id
+}
+
+# prometheus instance for monitoring
+resource "aws_instance" "prometheus_server" {
+  ami           = "ami-0fc5d935ebf8bc3bc"
+  instance_type = "t2.micro"
+  key_name      = "DOS15-Antonenko-ec2"
+
+    user_data = filebase64("${path.module}/prometheusServer.sh")
+
+  tags = {
+    Name = "Prometheus Server"
+  }
+  network_interfaces {
+    associate_public_ip_address = true
+    security_groups             = [aws_security_group.my_sg.id]
+  }
 }
 
 # aws required template for autoscaling group
