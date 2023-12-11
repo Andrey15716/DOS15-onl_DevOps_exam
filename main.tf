@@ -16,7 +16,6 @@ terraform {
   }
 }
 
-
 #vpc resource
 resource "aws_vpc" "main" {
   cidr_block = "10.0.0.0/16"
@@ -179,6 +178,7 @@ resource "aws_instance" "prometheus_server" {
   tags = {
     Name = "Prometheus Server"
   }
+  security_groups    = [aws_security_group.my_sg.id]
 }
 
 # aws required template for autoscaling group
