@@ -166,24 +166,6 @@ resource "aws_lb_target_group" "my_tg" {
   vpc_id      = aws_vpc.main.id
 }
 
-# prometheus instance for monitoring
-resource "aws_instance" "prometheus_server" {
-  ami           = "ami-0fc5d935ebf8bc3bc"
-  instance_type = "t2.micro"
-  key_name      = "DOS15-Antonenko-ec2"
-
-  # user data script that starts only while starting ec2
-  user_data = filebase64("${path.module}/prometheusServer.sh")
-
-  tags = {
-    Name = "Prometheus Server"
-  }
-  network_interface {
-    associate_public_ip_address = true
-    security_groups             = [aws_security_group.my_sg.id]
-  }
-}
-
 # aws required template for autoscaling group
 resource "aws_launch_template" "my_launch_template" {
   name = "DOS15-onl_Antonenko_template"
