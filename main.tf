@@ -179,20 +179,6 @@ resource "aws_instance" "prometheus_server" {
   tags = {
     Name = "Prometheus Server"
   }
-
-  block_device_mappings {
-    device_name = "/dev/sda1"
-
-    ebs {
-      volume_size = 8
-      volume_type = "gp2"
-    }
-  }
-
-  network_interfaces {
-    associate_public_ip_address = true
-    security_groups             = [aws_security_group.my_sg.id]
-  }
 }
 
 # aws required template for autoscaling group
