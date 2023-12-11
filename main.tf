@@ -173,11 +173,22 @@ resource "aws_instance" "prometheus_server" {
   instance_type = "t2.micro"
   key_name      = "DOS15-Antonenko-ec2"
 
-    user_data = filebase64("${path.module}/prometheusServer.sh")
+  # user data script that starts only while starting ec2
+  user_data = filebase64("${path.module}/prometheusServer.sh")
 
   tags = {
     Name = "Prometheus Server"
   }
+
+  block_device_mappings {
+    device_name = "/dev/sda1"
+
+    ebs {
+      volume_size = 8
+      volume_type = "gp2"
+    }
+  }
+
   network_interfaces {
     associate_public_ip_address = true
     security_groups             = [aws_security_group.my_sg.id]
