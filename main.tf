@@ -178,7 +178,10 @@ resource "aws_instance" "prometheus_server" {
   tags = {
     Name = "Prometheus Server"
   }
-  security_groups    = [aws_security_group.my_sg.id]
+  network_interface {
+    associate_public_ip_address = true
+    security_groups             = [aws_security_group.my_sg.id]
+  }
 }
 
 # aws required template for autoscaling group
