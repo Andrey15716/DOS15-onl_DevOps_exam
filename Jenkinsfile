@@ -42,7 +42,7 @@ pipeline {
       steps {
         script {
           WEBPAGE="http://my-alb-36497665.us-east-1.elb.amazonaws.com/"
-          HTTPCODE=$(curl --max-time 5 --silent --write-out %{response_code} --output "$STDOUTFILE" "$WEBPAGE")
+          HTTPCODE=$(curl --write-out '%{http_code}' --silent --output /dev/null "$WEBPAGE")
 
           if test $HTTPCODE -eq 200; then
               echo "HTTP STATUS CODE $HTTPCODE -> OK" # stdout
