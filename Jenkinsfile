@@ -42,15 +42,14 @@ pipeline {
       steps {
         script {
           def url = "http://my-alb-36497665.us-east-1.elb.amazonaws.com11/"
-          def responseCode = sh(script: "wget --spider -S ${url} 2>&1 | grep \"HTTP/\" | awk '{print \$2}'", returnStatus: true).trim()
-          if (responseCode == "200") {
+          def response = sh(script: "wget --spider -S ${url} 2>&1", returnStdout: true).trim()
+          if (response.contains("200 OK")) {
             echo "Website is accessible"
           } else {
-            error "Website is not accessible, received response code: ${responseCode}"
+            error "Website is not accessible. Response: ${response}"
           }
         }
       }
     }
-
   }
 }
