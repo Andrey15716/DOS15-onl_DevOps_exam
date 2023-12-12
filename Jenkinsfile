@@ -5,7 +5,6 @@ pipeline {
     THE_BUTLER_SAYS_SO=credentials('user-aws')
     EC2_HOST_1 = "54.86.69.28"
     EC2_HOST_2 = "3.83.141.178"
-    ALB_ADDRESS = "http://my-alb-36497665.us-east-1.elb.amazonaws.com/"
   }
 
   stages {
@@ -38,7 +37,7 @@ pipeline {
       }
     }
 
-    stage('Test Website') {
+    stage('Test Availability') {
       steps {
         script {
           sh '''
