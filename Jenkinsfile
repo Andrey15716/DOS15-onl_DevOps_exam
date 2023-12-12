@@ -30,7 +30,7 @@ pipeline {
           script {
             def hosts = [env.EC2_HOST_1, env.EC2_HOST_2]
             for (host in hosts) {
-              sh "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ubuntu@${host} 'bash -s' < sshConnect.sh"
+              sh "ssh -o StrictHostKeyChecking=no ubuntu@${host} 'bash -s' < sshConnect.sh"
             }
           }
         }
