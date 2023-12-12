@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ALB_ADDRESS="$1"
+ALB_ADDRESS="http://my-alb-36497665.us-east-1.elb.amazonaws.com/"
 responseCode=$(curl -s -o /dev/null -w '%{http_code}' $ALB_ADDRESS)
 
 if [ "$responseCode" != "200" ]; then
