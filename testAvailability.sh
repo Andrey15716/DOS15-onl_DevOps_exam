@@ -1,6 +1,6 @@
 #!/bin/bash
 
-curl http://my-alb-36497665.us-east-1.elb.amazonaws.com/   \
+curl http://my-alb-36497665.us-east-1.elb.amazonaws.com11/   \
 --silent \
 --insecure \
 --request POST \
