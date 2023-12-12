@@ -40,10 +40,9 @@ pipeline {
 
     stage('Test ALB Availability') {
       steps {
-        script {
-          sh "./testAvailability.sh ${env.ALB_ADDRESS}"
-          }
-        }
+        sh '''
+          ./testAvailability.sh ${env.ALB_ADDRESS}
+        '''
       }
     }
   }
