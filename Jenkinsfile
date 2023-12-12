@@ -42,6 +42,7 @@ pipeline {
       steps {
         script {
           sh '''
+            #!/bin/bash
             chmod +x ./testAvailability.sh
             ./testAvailability.sh "${env.ALB_ADDRESS}"
           '''
