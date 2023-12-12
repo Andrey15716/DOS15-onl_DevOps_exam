@@ -41,7 +41,7 @@ pipeline {
     stage('Test ALB Availability') {
       steps {
         sh '''
-          ./testAvailability.sh "${ALB_ADDRESS}"
+          chmod +x ./testAvailability.sh "${ALB_ADDRESS}"
         '''
       }
     }
