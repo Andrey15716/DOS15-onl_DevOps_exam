@@ -1,10 +1,9 @@
 #!/bin/bash
 
-WEBPAGE="http://my-alb-36497665.us-east-1.elb.amazonaws.com/"
-HTTPCODE=$(curl --max-time 5 --silent --write-out %{response_code} "$WEBPAGE")
+ALB_ADDRESS="http://my-alb-36497665.us-east-1.elb.amazonaws.com/"
+responseCode=$(curl -f -s -o /dev/null -w '%{http_code}' "$ALB_ADDRESS")
 
-if test $HTTPCODE -eq 200; then
-    echo "HTTP STATUS CODE $HTTPCODE -> OK"
-else
-    >&2 echo "HTTP STATUS CODE $HTTPCODE -> Has something gone wrong?"
+if [[ "$responseCode" -ne 200 ]]; then
+  echo "ALB Address $ALB_ADDRESS responded with code: $responseCode"
+  exit 1
 fi

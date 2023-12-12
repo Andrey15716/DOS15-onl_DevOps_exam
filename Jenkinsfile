@@ -38,19 +38,19 @@ pipeline {
       }
     }
 
-    stage('Test ALB Availability') {
+    stage('Test Website') {
       steps {
         script {
-          WEBPAGE="http://my-alb-36497665.us-east-1.elb.amazonaws.com/"
-          HTTPCODE=$(curl --write-out '%{http_code}' --silent --output /dev/null "$WEBPAGE")
-
-          if test $HTTPCODE -eq 200; then
-              echo "HTTP STATUS CODE $HTTPCODE -> OK" # stdout
-          else
-              >&2 echo "HTTP STATUS CODE $HTTPCODE -> Has something gone wrong?" #stderr
-          fi
+          def url = "http://my-alb-36497665.us-east-1.elb.amazonaws.com11/"
+          def responseCode = sh(script: "wget --spider -S ${url} 2>&1 | grep \"HTTP/\" | awk '{print \$2}'", returnStatus: true).trim()
+          if (responseCode == "200") {
+            echo "Website is accessible"
+          } else {
+            error "Website is not accessible, received response code: ${responseCode}"
+          }
         }
       }
     }
+
   }
 }
