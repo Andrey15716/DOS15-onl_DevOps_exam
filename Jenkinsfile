@@ -42,7 +42,7 @@ pipeline {
       steps {
         script {
           sh '''
-            ./testAvailability.sh {$ALB_ADDRESS}
+            ./testAvailability.sh "${ALB_ADDRESS}"
           '''
         }
       }
