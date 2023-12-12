@@ -44,7 +44,7 @@ pipeline {
           WEBPAGE="http://my-alb-36497665.us-east-1.elb.amazonaws.com/"
           def HTTPCODE = sh(script: "curl --max-time 5 --silent --write-out %{http_code} --output /dev/null '${WEBPAGE}' ")
 
-          if test $HTTPCODE -eq 200; then
+          if HTTPCODE -eq 200; then
               echo "HTTP STATUS CODE $HTTPCODE -> OK"
           else
               >&2 echo "HTTP STATUS CODE $HTTPCODE -> Has something gone wrong?"
